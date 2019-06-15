@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js" charset="utf-8"></script>
+        <title></title>
+    </head>
+    <body>
+        <div class="container" ng-app="myApp" ng-controller="myCtrl">
+            <h3 class="text-center">Register</h3>
+            <br>
+            <form class="" action="/user/register" method="POST" name="myForm">
+                <div class="form-group">
+                    <label for="email">Username: </label>
+                    <input class="form-control" type="text" name="username" value="">
+                    <br>
+                    <label for="pass">Password: </label>
+                    <input class="form-control" type="password" name="pass" value="" ng-model='pass'>
+                    <br>
+                    <label for="pass">Confirn Password: </label>
+                    <input class="form-control" type="password" name="con_pass" value="" ng-model='confirm_pass'>
+                    <br>
+                </div>
+                <div ng-show="confirm_pass.length">
+                    <div ng-if="vaild_pass()">
+                        <div class="text-center">
+                            <button type="submit" name="button" class="btn btn-primary btn-lg">Submit</button>
+                        </div>
+                    </div>
+                    <div ng-if="!vaild_pass()">
+                        <div class="text-center">
+                            <button type="submit" name="button" disabled class="btn btn-primary btn-lg">Submit</button>
+                            <br> <br>
+                            <p class="alert alert-danger" >Password does not match</p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <br>
+            <div class="text-center">
+                <a href="/">Have an account</a>
+            </div>
+        </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope) {
+            $scope.vaild_pass = function() {
+                if ($scope.pass == $scope.confirm_pass) {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        });
+    </script>
+</html>
+<!--
+
+<form class="" action="/user/register" method="post">
+<label>Username: </label>
+<input type="text" name="username" value="">
+<label>Password: </label>
+<input type="password" name="pass" value="">
+<label>Confirm password: </label>
+<input type="password" name="con_pass" value="">
+<button type="submit" name="button">Register</button>
+</form>
+    -->

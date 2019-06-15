@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <title>TODO App</title>
+    </head>
+    <body>
+        <br><br>
+        <div class="text-center">
+            <h2>To-do app</h2>
+            <h4 id="owner"><%= user %></h4>
+            <form class="" action="/user/logout" method="post">
+                <button type="submit" name="button" class="btn btn-danger">Logout</button>
+            </form>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-7 mx-auto alert alert-dark rounded">
+                <div class="form">
+                    <form class="form form-inline" action="" method="post">
+                        <br>
+                        <input type="hidden" name="owner" value="<%= user %>">
+                        <input type="text" name="txt" value="" class="form-control col mx-auto">
+                        <button type="submit" class="btn btn-primary" id='new_todo' style="margin-left: 5px" formaction="/add">Add todo</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- id = data.id -->
+        <!-- rev = data.key -->
+        <!-- text = data.value -->
+        <% if(data[0]) { %>
+            <% data.forEach((data)=> { %>
+                <div class="row">
+                    <div class="col-7 mx-auto alert alert-dark rounded">
+                        <div class="form">
+                            <form class="form form-inline" action="" method="post" id="todo_body">
+                                <input type="hidden" name="id" value="<%= data.id %>">
+                                <input type="hidden" name="rev" value="<%= data.value.rev %>">
+                                <label for="" class="form-control col mx-auto"><%= data.value.txt %></label>
+                                <button type="submit" class="btn btn-danger" style="margin-left: 5px" formaction="/delete">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <div class="text-center">
+                What an empty place!
+            </div>
+        <% } %>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</html>
