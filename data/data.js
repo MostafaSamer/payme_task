@@ -18,10 +18,10 @@ var check_username = function(username, callback) {
         function(data, header, status) {
             if (data.data.rows[0]) {
                 callback(true);
-                console.log("found");
+                console.log("username found");
             } else {
                 callback(false)
-                console.log("Not found");
+                console.log("username Not found");
             }
         },
         function(err) {
@@ -36,10 +36,10 @@ var check_login = function(username, pass, callback) {
         function(data, header, status) {
             if (data.data.rows[0] && md5(pass) == data.data.rows[0].value) {
                 callback(true)
-                console.log("found");
+                console.log("login found");
             } else {
                 callback(false)
-                console.log("Not found");
+                console.log("login Not found");
             }
         },
         function(err) {
@@ -52,17 +52,17 @@ var check_login = function(username, pass, callback) {
 var get_todo = function(username, callback) {
     couch.get(dbName, todo_view + "?key=\"" + username + "\"").then(
         function(data, header, status) {
-            console.log(data.data.rows);
+            //console.log(data.data.rows);
             callback(data.data.rows)
         },
         function(err) {
-            console.log("Error in geting data");
+            console.log("Error in geting todo data");
         }
     )
 }
 
 // add a todo for a user
-var add_todo = function(username, txt) {
+var add_todo = function(username, txt, callback) {
     couch.uniqid().then(function(ids) {
         const id = ids[0];
         couch.insert(dbName, {
@@ -70,20 +70,22 @@ var add_todo = function(username, txt) {
             owner: username
         }).then(
             function(data, header, status) {
-                console.log("Data Saved!");
+                console.log("new todo Data Saved!");
+                callback()
             },
             function(err) {
-                console.log("Error!");
+                console.log("Error!, in saving new data");
             }
         )
     })
 }
 
 // delete a todo
-var del_todo = function(id, rev) {
+var del_todo = function(id, rev, callback) {
     couch.del(dbName, id, rev).then(
         function(data, header, Static) {
-            console.log("Deleted");
+            console.log("todo Deleted");
+            callback();
         },
         function(err) {
             console.log("Error in deleting a todo");
@@ -103,7 +105,7 @@ var add_user = function(username, pass) {
                 console.log("new user Data Saved!");
             },
             function(err) {
-                console.log("Error!");
+                console.log("Error!, in saving new user");
             }
         )
     })

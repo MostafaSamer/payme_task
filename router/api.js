@@ -7,12 +7,12 @@ function render_home_page(req, res) {
     //console.log(req.session.user);
     //console.log("This is from the flash " + req.flash('user')[0]);
     const username = req.flash('user')[0];
-    console.log("username +++++ " + username);
+    //console.log("username +++++ " + username);
     //console.log("username out: " + username);
     req.flash('user', username);
     if (username) {
         // get user todo and render it with the user name
-        console.log("username: " + username);
+        //console.log("username: " + username);
         data.get_todo(username, function(todo_user) {
             res.render('home', {
                 user: username,
@@ -79,8 +79,9 @@ router.post('/add', (req, res)=> {
     var owner = req.body.owner
     var txt = req.body.txt
     req.flash('user', owner)
-    data.add_todo(owner, txt);
-    render_home_page(req, res)
+    data.add_todo(owner, txt, function() {
+        render_home_page(req, res)
+    });
 })
 
 router.post('/delete', (req, res)=> {
@@ -88,8 +89,10 @@ router.post('/delete', (req, res)=> {
     var id = req.body.id
     var rev = req.body.rev
     req.flash('user', owner)
-    data.del_todo(id, rev);
-    render_home_page(req, res)
+    data.del_todo(id, rev, function() {
+        render_home_page(req, res)
+    });
+
 })
 
 module.exports = router;
