@@ -38,6 +38,7 @@
                             <form class="form form-inline" action="" method="post" id="todo_body">
                                 <input type="hidden" name="id" value="<%= data.id %>">
                                 <input type="hidden" name="rev" value="<%= data.value.rev %>">
+                                <input type="hidden" name="owner" value="<%= user %>">
                                 <label for="" class="form-control col mx-auto"><%= data.value.txt %></label>
                                 <button type="submit" class="btn btn-danger" style="margin-left: 5px" formaction="/delete">Delete</button>
                             </form>

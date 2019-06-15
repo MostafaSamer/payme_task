@@ -34,7 +34,7 @@ var check_username = function(username, callback) {
 var check_login = function(username, pass, callback) {
     couch.get(dbName, user_view + "?key=\"" + username + "\"").then(
         function(data, header, status) {
-            if (data.data.rows[0] && pass == data.data.rows[0].value) {
+            if (data.data.rows[0] && md5(pass) == data.data.rows[0].value) {
                 callback(true)
                 console.log("found");
             } else {
@@ -97,7 +97,7 @@ var add_user = function(username, pass) {
         const id = ids[0];
         couch.insert(dbName, {
             username: username,
-            pass: pass
+            pass: md5(pass)
         }).then(
             function(data, header, status) {
                 console.log("new user Data Saved!");

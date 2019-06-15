@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
+const flash = require('express-flash');
 
 var app = express();
 
@@ -20,6 +21,9 @@ app.set('view engine', 'ejs');
 // Static Files
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Flash
+app.use(flash());
+
 // Session
 app.use(session({
     secret: 'keyboard cat',
@@ -33,7 +37,7 @@ var routers = require('./router/api');
 app.use('/', routers);
 
 // localhost
-server.listen(process.env.PORT || 3000, ()=> {
+app.listen(process.env.PORT || 3000, ()=> {
     console.log("app is running at port 3000");
 
     io.on('connection', (socket)=> {
