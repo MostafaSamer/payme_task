@@ -33,7 +33,7 @@ var routers = require('./router/api');
 app.use('/', routers);
 
 // localhost
-server.listen(3000, ()=> {
+server.listen(process.env.PORT || 3000, ()=> {
     console.log("app is running at port 3000");
 
     io.on('connection', (socket)=> {
